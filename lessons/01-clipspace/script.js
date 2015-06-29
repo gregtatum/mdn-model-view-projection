@@ -1,11 +1,28 @@
-/**
- *  Note: the following functions are from /shared/shaders.js
- *
- *  createContext
- *  createWebGLProgramFromIds
- **/
+/*
 
-// Let's make a class that will draw a 2d box with WebGL
+  In a WebGL program data is typically uploaded to the GPU with its own coordinate system
+  and then the vertex shader transforms those points into a different coordinate system
+  known as clip space. If any data is outside of the clip space, then it is clipped off
+  and not rendered. Sometimes new triangles are created automatically when the data is
+  both inside and outside of the clip space.
+
+  View the clipspace-graph.svg to see a visualization of this space that all of the
+  points must fit into. It is 2 units wide, and consists of a cube from the corner
+  (-1,-1,-1) to the corner (1,1,1). The middle of the cube is the point (0,0,0).
+
+  For this lesson we won't figure out how to transform our data into this clip space,
+  instead we will send data to the GPU already in this coordinate system. The code
+  below will create 2 triangles that will draw a square on the screen. The Z depth in
+  the squares determines what gets drawn ontop when the squares share the same space.
+  The smaller Z values are rendered ontop of the larger Z values.
+  
+  Note: the following functions used below are from /shared/shaders.js
+   * createContext
+   * createWebGLProgramFromIds
+
+*/
+
+// To start, let's make a class that will draw a 2d box using WebGL
 
 function WebGLBox() {
   
@@ -28,7 +45,7 @@ function WebGLBox() {
   // Tell WebGL to test the depth when drawing, so if a square is behind
   // another square it won't be drawn
   gl.enable(gl.DEPTH_TEST);
-    
+  
   // Default to a black color
   this.color = [0, 0, 0, 1];
 }
