@@ -1,5 +1,5 @@
 /*
-	The main line of the vertex shader contains this code:
+  The main line of the previous clipspace vertex shader contained this code:
 
       gl_Position = vec4(position, 1.0);
   
@@ -12,9 +12,9 @@
   for manipulating 3d data.
 
   A three dimensional point is defined in a typical Cartesian coordinate system.
-  The added 4th dimension changes this point into homogeneous coordinate. It still
-  represents a point in 3d space and can easily be demonstrated how to construct
-  a coordinate through a pair of simple functions.
+  The added 4th dimension changes this point into a homogeneous coordinate. It still
+  represents a point in 3d space and it can easily be demonstrated how to construct
+  this type of coordinate through a pair of simple functions.
 
 */
 
@@ -39,9 +39,9 @@ function homogeneousToCartesian (point) {
 
 /*
   As can be seen, the w component divides the x, y, and z components. When the
-  w component is a non-zero real number then the x, y, and z components translate
-  easily into normal points in Cartesian space. Now what happens if the w component
-  is zero? In JavaScript the value returned would be as follows.
+  w component is a non-zero real number then homogeneous coordinate easily
+  translates back into a normal point in Cartesian space. Now what happens if
+  the w component is zero? In JavaScript the value returned would be as follows.
 */
 
 homogeneousToCartesian([10,4,5,0]);
@@ -49,8 +49,8 @@ homogeneousToCartesian([10,4,5,0]);
 // Evaluates to: [Infinity, Infinity, Infinity]
 
 /*
-  This homogeneous coordinate represents some point at infinity. This is handily
-  a way to represent a ray shooting off from the origin in a specific direction.
+  This homogeneous coordinate represents some point at infinity. This is a handy
+  way to represent a ray shooting off from the origin in a specific direction.
   In addition to a ray, it could also be thought of as a representation of a
   directional vector. If this homogeneous coordinate is multiplied against a
   matrix with a translation then the translation is effectively stripped out.
@@ -59,24 +59,24 @@ homogeneousToCartesian([10,4,5,0]);
   When numbers are extremely large (or extremely small) on computers they begin to
   become less and less precise because there are only so many ones and zeros that
   are used to represent them. The more operations are done on larger numbers, more
-  and more errors accumulate into the result. When dividing by zero, this can
+  and more errors accumulate into the result. When dividing by w, this can
   effectively increase the precision of very large numbers by operating on two
-  smaller numbers.
+  potentially smaller, less error-prone numbers.
 
   The final benefit of using homogeneous coordinates is that they fit very nicely
-  for multiplying against 4x4 matrices. A point must match at least one of the
+  for multiplying against 4x4 matrices. A vertex must match at least one of the
   dimensions of a matrix in order to be multiplied against it. The 4x4 matrix
   can be used to encode a variety of useful transformations. In fact, the
   typical perspective matrix uses the division by the w component to achieve its
   transformation.
 
-  The clipping from clip space actually happens after the homogeneous coordinates
-  have been transformed back into Cartesian coordinates (by dividing by w). This
-  final space is known as "normalized device coordinates" or NDC. The previous
-  WebGlBox example is included below, but with the addition of the w component
-  in the draw call. Play around with these values to see how it affects what is
-  rendered on the screen. Note how the previously clipped box is brought back
-  into range by setting its w component.
+  The clipping of points and polygons from clip space actually happens after
+  the homogeneous coordinates have been transformed back into Cartesian coordinates
+  (by dividing by w). This final space is known as "normalized device coordinates"
+  or NDC. The previous WebGlBox example is included below, but with the addition
+  of the w component in the draw call. Play around with these values to see how
+  it affects what is rendered on the screen. Note how the previously clipped blue
+  box is brought back into range by setting its w component.
 */
 
 
