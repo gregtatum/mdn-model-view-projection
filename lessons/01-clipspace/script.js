@@ -129,7 +129,7 @@ box.draw({
   left   : -1,              // y
   right  : 1,               // y
                            
-  depth  : 1.5,             // z
+  depth  : -1.5,            // z
   color  : [0.4, 0.4, 1, 1] // blue
 });
 
