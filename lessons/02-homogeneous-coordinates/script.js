@@ -58,8 +58,8 @@ homogeneousToCartesian([10,4,5,0]);
   TODO - This is in theory, does this actually happen in live code:
   When numbers are extremely large (or extremely small) on computers they begin to
   become less and less precise because there are only so many ones and zeros that
-  are used to represent them. The more operations are done on larger numbers, more
-  and more errors accumulate into the result. When dividing by w, this can
+  are used to represent them. The more operations that are done on larger numbers,
+  the more and more errors accumulate into the result. When dividing by w, this can
   effectively increase the precision of very large numbers by operating on two
   potentially smaller, less error-prone numbers.
 
@@ -86,7 +86,7 @@ function WebGLBox() {
   this.canvas = document.getElementById("canvas");
   this.canvas.width = window.innerWidth;
   this.canvas.height = window.innerHeight;
-  this.gl = createContext(canvas);
+  this.gl = createContext(this.canvas);
   
   var gl = this.gl; 
 

@@ -1,8 +1,8 @@
-function matrixArrayToCssMatrix(array) {
+function matrixArrayToCssMatrix (array) {
   return "matrix3d(" + array.join(',') + ")";
 }
 
-function multiplyMatrices(a, b) {
+function multiplyMatrices (a, b) {
   
   // TODO - Simplify for explanation
   // currently taken from https://github.com/toji/gl-matrix/blob/master/src/gl-matrix/mat4.js#L306-L337
@@ -42,7 +42,7 @@ function multiplyMatrices(a, b) {
   return result;
 }
 
-function multiplyArrayOfMatrices(matrices) {
+function multiplyArrayOfMatrices (matrices) {
   
   var inputMatrix = matrices[0];
   
@@ -53,27 +53,86 @@ function multiplyArrayOfMatrices(matrices) {
   return inputMatrix;
 }
 
-// Generates a perspective matrix
-function perspectiveMatrix(fovVertical, aspectRatio, near, far) {
+function rotateXMatrix (a) {
   
-  // TODO - This function is a bit of handwaving, can we explain it better?
-  
-  var f = 1.0 / Math.tan(fovVertical / 2)
-  var nf = 1 / (near - far);
-    
-  var a = f / aspectRatio;
-  var b = (far + near) * nf;
-  var c = (2 * far * near) * nf;
+  var cos = Math.cos;
+  var sin = Math.sin;
   
   return [
-      a,    0,    0,   0,
-      0,    f,    0,   0,
-      0,    0,    b,  -1,
-      0,    0,    c,   1
+       1,       0,        0,     0,
+       0,  cos(a),  -sin(a),     0,
+       0,  sin(a),   cos(a),     0,
+       0,       0,        0,     1
   ];
 }
 
-function createContext(canvas) {
+function rotateYMatrix (a) {
+
+  var cos = Math.cos;
+  var sin = Math.sin;
+  
+  return [
+     cos(a),   0, sin(a),   0,
+          0,   1,      0,   0,
+    -sin(a),   0, cos(a),   0,
+          0,   0,      0,   1
+  ];
+}
+
+function rotateZMatrix (a) {
+
+  var cos = Math.cos;
+  var sin = Math.sin;
+  
+  return [
+    cos(a), -sin(a),    0,    0,
+    sin(a),  cos(a),    0,    0,
+         0,       0,    1,    0,
+         0,       0,    0,    1
+  ];
+}
+
+function translateMatrix (x, y, z) {
+	return [
+	    1,    0,    0,   0,
+	    0,    1,    0,   0,
+	    0,    0,    1,   0,
+	    x,    y,    z,   1
+	];
+}
+
+function scaleMatrix (w, h, d) {
+	return [
+	    w,    0,    0,   0,
+	    0,    h,    0,   0,
+	    0,    0,    d,   0,
+	    0,    0,    0,   1
+	];
+}
+
+function perspectiveMatrix (fieldOfViewInRadians, aspectRatio, near, far) {
+  
+  // Construct a perspective matrix
+  
+  /*
+     Field of view - the angle in radians of what's in view along the Y axis
+     Aspect Ratio - the ratio of the canvas, typically canvas.width / canvas.height
+     Near - Anything before this point in the Z direction gets clipped (outside of the clip space)
+     Far - Anything after this point in the Z direction gets clipped (outside of the clip space)
+  */
+  
+  var f = 1.0 / Math.tan(fieldOfViewInRadians / 2);
+  var rangeInv = 1 / (near - far);
+ 
+  return [
+    f / aspectRatio, 0,                          0,   0,
+    0,               f,                          0,   0,
+    0,               0,    (near + far) * rangeInv,  -1,
+    0,               0,  near * far * rangeInv * 2,   0
+  ];
+}
+
+function createContext (canvas) {
   
   var gl;
   
