@@ -8,17 +8,18 @@
 
   Finally a single model matrix is set that represents the transformations that will
   be performed on each position that makes up the model to move it into the correct
-  space. In this case, for every frame of the animation
-  a series of scale, rotation, and translation matrices move the data into the
-  desired spot in clip space. This matrix is set up as a uniform in the shader.
+  space. In this case, for every frame of the animation, a series of scale, rotation,
+  and translation matrices move the data into the desired spot in clip space. This
+  matrix is sent to the shader having been multiplied in JavaScript beforehand.
   
-  In the shader the position is transformed into a homogeneous coordinate (vec4),
-  and multiplied against this model matrix:
+  In the shader each position vertex is first transformed into a homogeneous
+  coordinate (vec4), and then multiplied against the model matrix:
 
     gl_Position = model * vec4(position, 1.0);
 
-  At this point the W value is still 1.0, there is no perspective to this view
-  of the cube.
+  At this point the W value of the transformed point is still 1.0. The cube still
+  doesn't have any perspective. The next example will take this setup, and fiddle
+  with the W values to provide some perspective.
 */
 
 function CubeDemo () {
