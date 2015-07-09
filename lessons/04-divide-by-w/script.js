@@ -1,30 +1,16 @@
 /*
-  Placing points directly into clip space is of limited use. What's better is
-  to take model data and transform it into clipspace. The cube is an easy example
-  of how to do this. The cube data below consists of vertex positions, the colors
-  of the faces of the cube, and the order of the vertex positions that make up
-  the individual polygons (in groups of 3). The positions and colors are stored in
-  buffers and sent to the shader as attributes, and then operated upon individually.
+  An easy way to start getting some perspective on our model of the cube is to
+  take the Z coordinate and copy it over to the W coordinate.
+  Normally when converting a cartesian point to homogeneous it becomes (x,y,z,1),
+  but we're going to set it to something like (x,y,z,z). In reality we want to
+  make sure that z is greater than 0 for points in view, so we'll modify it slightly
+  by changing the value to (1.0 + (z * scaleFactor)). This will take a point that
+  is normally in clip space (-1 to 1) and move it into a space more like (0 to 2).
+  The scale factor changes final w value to be either higher or lower overall.
 
-  Finally a single model matrix is set that represents the transformations that will
-  be performed on each position that makes up the model to move it into the correct
-  space. In this case, for every frame of the animation, a series of scale, rotation,
-  and translation matrices move the data into the desired spot in clip space. The
-  cube is the size of clipspace (-1,-1,-1) to (1,1,1) so it will need to be shrunk
-  down to fit. This matrix is sent to the shader having been multiplied in JavaScript
-  beforehand.
-  
-  In the shader each position vertex is first transformed into a homogeneous
-  coordinate (vec4), and then multiplied against the model matrix. In
-
-    gl_Position = model * vec4(position, 1.0);
-
-  It may be noted that in JavaScript matrix multiplication requires a function,
-  while in the shader it is built into the language with the simple * operator.
-
-  At this point the W value of the transformed point is still 1.0. The cube still
-  doesn't have any perspective. The next example will take this setup, and fiddle
-  with the W values to provide some perspective.
+  If that sounds a little abstract open up the vertex shader and play around with
+  the scale factor and watch how it shrinks points more towards the surface. Completely
+  change the w component values for really trippy representations of space.
 */
 
 function CubeDemo () {
@@ -71,7 +57,7 @@ CubeDemo.prototype.setupProgram = function() {
 CubeDemo.prototype.computeModelMatrix = function( now ) {
 
   //Scale down by 30%
-  var scale = scaleMatrix(0.5, 0.5, 0.5);
+  var scale = scaleMatrix(0.2, 0.2, 0.2);
   
   // Rotate a slight tilt
   var rotateX = rotateXMatrix( now * 0.0003 );

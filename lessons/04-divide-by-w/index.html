@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Divide By W</title>
+  <link type='text/css' rel='stylesheet' href='../../shared/style.css' />
+  <style>
+    svg {
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec3 position;
+    attribute vec4 color;
+    uniform mat4 model;
+
+    // Pass the color attribute down to the fragment shader
+    varying vec4 vColor;
+
+    void main() {
+      
+      // Pass the color down to the fragment shader
+      vColor = color;
+      
+      // First transform the point      
+      vec4 transformedPosition = model * vec4( position, 1.0 );
+      
+      // How much affect does the perspective have?
+      float scaleFactor = 0.5;
+      
+      // Set a custom W value that is typically greater than 0 for
+      // points already in clip space
+      float w = (1.0 + transformedPosition.z) * scaleFactor;
+      
+      // Save the new gl_Position with the custom w component
+      gl_Position = vec4( transformedPosition.xyz, w );
+    }
+  </script>
+
+  <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    varying vec4 vColor;
+    
+    void main() {
+      gl_FragColor = vColor;
+      // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    }
+  </script>
+    
+  <canvas id="canvas"></canvas>
+    
+  <script type='text/javascript' src='../../shared/cube.js'></script>
+  <script type='text/javascript' src='../../shared/shared.js'></script>
+  <script type='text/javascript' src='../../shared/shaders.js'></script>
+  <script type='text/javascript' src='script.js'></script>
+    
+</body>
+</html>
