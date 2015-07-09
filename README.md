@@ -5,9 +5,9 @@ This content kit explores how to take data within a WebGL project, and project i
 
 Lesson          | JSFiddle                                                       | Code
 --------------- | -------------------------------------------------------------- | --------------------------------------------
-Clipspace                   | TODO   | [script.js](lessons/01-clipspace/script.js)
-Homogeneous Coordinates     | TODO   | [script.js](lessons/02-homogeneous-coordinates/script.js)
-Model Matrix                | TODO   | [script.js](lessons/03-model-transform/script.js)
-Divide by W                 | TODO   | [script.js](lessons/04-divide-by-w/script.js)
+Clipspace                   | TODO   | [01-clipspace](lessons/01-clipspace)
+Homogeneous Coordinates     | TODO   | [02-homogeneous-coordinates](lessons/02-homogeneous-coordinates)
+Model Matrix                | TODO   | [03-model-transform](lessons/03-model-transform)
+Divide by W                 | TODO   | [04-divide-by-w](lessons/04-divide-by-w)
 Perspective Matrix          | TODO   | TODO
 Model View Matrix           | TODO   | TODO

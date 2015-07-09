@@ -12,14 +12,19 @@
 </head>
 <body>
   
+  <!-- The vertex shader operates on individual vertices in our model data by setting gl_Position -->
   <script id="vertex-shader" type="x-shader/x-vertex">
+    // The individual position vertex
     attribute vec3 position;
 
     void main() {
+      
+      // the gl_Position is the final position after the vertex shader modifies it
       gl_Position = vec4(position, 1.0);
     }
   </script>
 
+  <!-- The fragment shader determines the color of the final pixel by setting gl_FragColor -->
   <script id="fragment-shader" type="x-shader/x-fragment">
     precision mediump float;
     uniform vec4 color;
