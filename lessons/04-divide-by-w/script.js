@@ -11,6 +11,9 @@
   If that sounds a little abstract open up the vertex shader and play around with
   the scale factor and watch how it shrinks points more towards the surface. Completely
   change the w component values for really trippy representations of space.
+
+  In the next lesson we'll take this step of copying Z into the W slot and turn
+  it into a matrix.
 */
 
 function CubeDemo () {
