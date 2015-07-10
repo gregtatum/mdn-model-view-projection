@@ -10,5 +10,5 @@ Homogeneous Coordinates     | TODO   | [02-homogeneous-coordinates](lessons/02-h
 Model Matrix                | TODO   | [03-model-transform](lessons/03-model-transform)
 Divide by W                 | TODO   | [04-divide-by-w](lessons/04-divide-by-w)
 Simple Projection           | TODO   | [05-simple-projection](lessons/05-simple-projection)
-Perspective Matrix          | TODO   | [06-perpective-matrix](lessons/06-perpective-matrix)
+Perspective Matrix          | TODO   | [06-perspective-matrix](lessons/06-perspective-matrix)
 View Matrix                 | TODO   | [07-view-matrix](lessons/07-view-matrix)
