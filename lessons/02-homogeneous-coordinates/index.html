@@ -12,18 +12,23 @@
 </head>
 <body>
   
+  <!-- The vertex shader operates on individual vertices in our model data by setting gl_Position -->
   <script id="vertex-shader" type="x-shader/x-vertex">
-    attribute vec4 position;
+    // The individual position vertex
+    attribute vec3 position;
 
     void main() {
-      gl_Position = position;
+    
+      // the gl_Position is the final position after the vertex shader modifies it
+      gl_Position = vec4(position, 1.0);
     }
   </script>
 
+  <!-- The fragment shader determines the color of the final pixel by setting gl_FragColor -->
   <script id="fragment-shader" type="x-shader/x-fragment">
     precision mediump float;
     uniform vec4 color;
-    
+  
     void main() {
       gl_FragColor = color;
     }
@@ -103,7 +108,7 @@
   	<text x="3.88%" y="95.45%" font-family="'Courier New'" font-size="16" font-weight="bold">Clipspace</text>
   </svg>
     
-  <script type='text/javascript' src='../../shared/shared.js'></script>
+  <script type='text/javascript' src='../../shared/matrices.js'></script>
   <script type='text/javascript' src='../../shared/shaders.js'></script>
   <script type='text/javascript' src='script.js'></script>
     

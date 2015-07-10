@@ -1,24 +1,40 @@
 /*
-  An easy way to start getting some perspective on our model of the cube is to
-  take the Z coordinate and copy it over to the W coordinate.
-  Normally when converting a cartesian point to homogeneous it becomes (x,y,z,1),
-  but we're going to set it to something like (x,y,z,z). In reality we want to
-  make sure that z is greater than 0 for points in view, so we'll modify it slightly
-  by changing the value to (1.0 + (z * scaleFactor)). This will take a point that
-  is normally in clip space (-1 to 1) and move it into a space more like (0 to 2).
-  The scale factor changes final w value to be either higher or lower overall.
+  The final step in all of this is to create the view matrix. Right now
+  we can move the cube around world space. We can project everything
+  to have perspective, but we still can't move the camera.
 
-  If that sounds a little abstract open up the vertex shader and play around with
-  the scale factor and watch how it shrinks points more towards the surface. Completely
-  change the w component values for really trippy representations of space.
+  The final matrix is the view matrix that represents the camera's position.
+  Imagine shooting a movie with a physical camera. This matrix represents
+  the position and rotation of that physical camera.
 
-  In the next lesson we'll take this step of copying Z into the W slot and turn
-  it into a matrix.
+  At this point it would be beneficial to take a step back and look at and label
+  the various coordinate systems. First off the cube's vertices are in model
+  space. To move the model around the scene these vertices need to be converted into
+  world space.
+
+  model space -> model matrix -> world space
+
+  The camera hasn't done anything yet, and the points need to be moved again. Currently
+  they are in world space, but then need to be moved to view space.
+
+  world space -> view matrix -> view space
+
+  Finally a projection or perspective needs to be added. This final step will move it
+  into clip space.
+
+  view space -> projection matrix -> clip space
+
+  After this step the GPU will clip the out of range vertices, and send the model
+  down to the fragment shader for rasterization.
+
 
   Exercise:
 
-    Modify the scaleFactor in the vertex shader in index.html and observe the changes.
-    Move the cube around by changing the model matrix.
+    1) Move the camera around the scene. Add some rotation matrices to the view matrix
+       to look around.
+
+    2) Track the mouse's position. Use 2 rotation matrices to have the camera look
+       up and down based on where the user's mouse is on the screen.
 */
 
 function CubeDemo () {
@@ -50,6 +66,8 @@ CubeDemo.prototype.setupProgram = function() {
   
   // Save the attribute and uniform locations
   this.locations.model = gl.getUniformLocation(webglProgram, "model");
+  this.locations.view = gl.getUniformLocation(webglProgram, "view");
+  this.locations.projection = gl.getUniformLocation(webglProgram, "projection");
   this.locations.position = gl.getAttribLocation(webglProgram, "position");
   this.locations.color = gl.getAttribLocation(webglProgram, "color");
   
@@ -62,19 +80,50 @@ CubeDemo.prototype.setupProgram = function() {
   return webglProgram;
 };
 
+CubeDemo.prototype.computePerspectiveMatrix = function() {
+  
+  var fieldOfViewInRadians = Math.PI * 0.5;
+  var aspectRatio = window.innerWidth / window.innerHeight;
+  var nearClippingPlaneDistance = 1;
+  var farClippingPlaneDistance = 50;
+  
+  this.transforms.projection = perspectiveMatrix(
+    fieldOfViewInRadians,
+    aspectRatio,
+    nearClippingPlaneDistance,
+    farClippingPlaneDistance
+  );
+};
+
+CubeDemo.prototype.computeViewMatrix = function( now ) {
+
+  var zoomInAndOut = 5 * Math.sin(now * 0.002);
+  
+  // Move slightly down
+  var position = translateMatrix(0, 0, -20 + zoomInAndOut );
+  
+  // Multiply together, make sure and read them in opposite order
+  this.transforms.view = multiplyArrayOfMatrices([
+    
+    //Exercise: rotate the camera view
+    position
+  ]);
+  
+};
+
 CubeDemo.prototype.computeModelMatrix = function( now ) {
 
-  //Scale down by 30%
-  var scale = scaleMatrix(0.2, 0.2, 0.2);
+  //Scale up
+  var scale = scaleMatrix(5, 5, 5);
   
   // Rotate a slight tilt
-  var rotateX = rotateXMatrix( now * 0.0003 );
+  var rotateX = rotateXMatrix( Math.PI * 0.2 );
   
   // Rotate according to time
-  var rotateY = rotateYMatrix( now * 0.0005 );
+  var rotateY = rotateYMatrix( Math.PI * 0.2 );
 
   // Move slightly down
-  var position = translateMatrix(0, -0.1, 0);
+  var position = translateMatrix(0, 0, 0);
   
   // Multiply together, make sure and read them in opposite order
   this.transforms.model = multiplyArrayOfMatrices([
@@ -97,6 +146,8 @@ CubeDemo.prototype.draw = function() {
   
   // Compute our matrices
   this.computeModelMatrix( now );
+  this.computeViewMatrix( now );
+  this.computePerspectiveMatrix( 0.5 );
   
   // Update the data going to the GPU
   this.updateAttributesAndUniforms();
@@ -114,6 +165,8 @@ CubeDemo.prototype.updateAttributesAndUniforms = function() {
   
   // Setup the color uniform that will be shared across all triangles
   gl.uniformMatrix4fv(this.locations.model, false, new Float32Array(this.transforms.model));
+  gl.uniformMatrix4fv(this.locations.projection, false, new Float32Array(this.transforms.projection));
+  gl.uniformMatrix4fv(this.locations.view, false, new Float32Array(this.transforms.view));
   
   // Set the positions attribute
   gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.positions);

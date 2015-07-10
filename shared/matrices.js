@@ -2,6 +2,23 @@ function matrixArrayToCssMatrix (array) {
   return "matrix3d(" + array.join(',') + ")";
 }
 
+function multiplyPoint (matrix, point) {
+  
+  var x = point[0], y = point[1], z = point[2], w = point[3];
+  
+  var c1r1 = matrix[ 0], c2r1 = matrix[ 1], c3r1 = matrix[ 2], c4r1 = matrix[ 3],
+      c1r2 = matrix[ 4], c2r2 = matrix[ 5], c3r2 = matrix[ 6], c4r2 = matrix[ 7],
+      c1r3 = matrix[ 8], c2r3 = matrix[ 9], c3r3 = matrix[10], c4r3 = matrix[11],
+      c1r4 = matrix[12], c2r4 = matrix[13], c3r4 = matrix[14], c4r4 = matrix[15];
+  
+  return [
+    x*c1r1 + y*c1r2 + z*c1r3 + w*c1r4,
+    x*c2r1 + y*c2r2 + z*c2r3 + w*c2r4,
+    x*c3r1 + y*c3r2 + z*c3r3 + w*c3r4,
+    x*c4r1 + y*c4r2 + z*c4r3 + w*c4r4
+  ];
+}
+
 function multiplyMatrices (a, b) {
   
   // TODO - Simplify for explanation
@@ -132,23 +149,22 @@ function perspectiveMatrix (fieldOfViewInRadians, aspectRatio, near, far) {
   ];
 }
 
-function createContext (canvas) {
+function orthographicMatrix(left, right, bottom, top, near, far) {
   
-  var gl;
+  // Each of the parameters represents the plane of the bounding box
   
-  try {
-    // Try to grab the standard context. If it fails, fallback to experimental.
-    gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-  }
-  catch(e) {}
+  var lr = 1 / (left - right);
+  var bt = 1 / (bottom - top);
+  var nf = 1 / (near - far);
+	
+  var row4col1 = (left + right) * lr;
+  var row4col2 = (top + bottom) * bt;
+  var row4col3 = (far + near) * nf;
   
-  // If we don't have a GL context, give up now
-  if (!gl) {
-    var message = "Unable to initialize WebGL. Your browser may not support it.";
-    alert(message);
-    throw new Error(message);
-    gl = null;
-  }
-  
-  return gl;
+  return [
+     -2 * lr,        0,        0, 0,
+           0,  -2 * bt,        0, 0,
+           0,        0,   2 * nf, 0,
+    row4col1, row4col2, row4col3, 1
+  ];
 }

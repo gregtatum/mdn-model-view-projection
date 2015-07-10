@@ -74,9 +74,14 @@ homogeneousToCartesian([10,4,5,0]);
   the homogeneous coordinates have been transformed back into Cartesian coordinates
   (by dividing by w). This final space is known as "normalized device coordinates"
   or NDC. The previous WebGlBox example is included below, but with the addition
-  of the w component in the draw call. Play around with these values to see how
-  it affects what is rendered on the screen. Note how the previously clipped blue
-  box is brought back into range by setting its w component.
+  of the w component in the draw call.
+
+  Exercise:
+
+    Play around with these values to see how it affects what is rendered on the
+    screen. Note how the previously clipped blue box is brought back into range
+    by setting its w component. Try creating a new box that is outside of clip
+    space and brought back in by dividing by w.
 */
 
 

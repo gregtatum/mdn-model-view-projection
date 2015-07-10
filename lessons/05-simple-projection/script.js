@@ -1,24 +1,69 @@
 /*
-  An easy way to start getting some perspective on our model of the cube is to
-  take the Z coordinate and copy it over to the W coordinate.
-  Normally when converting a cartesian point to homogeneous it becomes (x,y,z,1),
-  but we're going to set it to something like (x,y,z,z). In reality we want to
-  make sure that z is greater than 0 for points in view, so we'll modify it slightly
-  by changing the value to (1.0 + (z * scaleFactor)). This will take a point that
-  is normally in clip space (-1 to 1) and move it into a space more like (0 to 2).
-  The scale factor changes final w value to be either higher or lower overall.
+  The last step of filling in the W component can actually be accomplished with
+  a simple matrix. Start with the identity matrix:
+*/
 
-  If that sounds a little abstract open up the vertex shader and play around with
-  the scale factor and watch how it shrinks points more towards the surface. Completely
-  change the w component values for really trippy representations of space.
+  var identity = [
+	1, 0, 0, 0,
+	0, 1, 0, 0,
+	0, 0, 1, 0,
+	0, 0, 0, 1,
+  ];
 
-  In the next lesson we'll take this step of copying Z into the W slot and turn
-  it into a matrix.
+  multiplyPoint( identity, [2,3,4,1] );
+  //> [2, 3, 4, 1]
 
-  Exercise:
 
-    Modify the scaleFactor in the vertex shader in index.html and observe the changes.
-    Move the cube around by changing the model matrix.
+// Then move the last column's 1 up one space.
+  
+  var copyZ = [
+	1, 0, 0, 0,
+	0, 1, 0, 0,
+	0, 0, 1, 1,
+	0, 0, 0, 0,
+  ];
+
+  multiplyPoint( copyZ, [2,3,4,1] );
+  //> [2, 3, 4, 4]
+
+
+// However in the last example we performed (z + 1) * scaleFactor
+  
+  var scaleFactor = 0.5;
+
+  var simpleProjection = [
+	1, 0, 0, 0,
+	0, 1, 0, 0,
+	0, 0, 1, scaleFactor,
+	0, 0, 0, scaleFactor,
+  ];
+
+  multiplyPoint( simpleProjection, [2,3,4,1] );
+  //> [2, 3, 4, 2.5]
+
+
+// Breaking this out a little further we can see how the works
+  
+  var x = (2*1) + (3*0) + (4*0) + (1*0) 
+  var y = (2*0) + (3*1) + (4*0) + (1*0) 
+  var z = (2*0) + (3*0) + (4*1) + (1*0) 
+  var w = (2*0) + (3*0) + (4*scaleFactor) + (1*scaleFactor) 
+  
+
+// The last line could be simplified to:
+
+  w = (4 * scaleFactor) + (1 * scaleFactor)
+
+// Then factoring out the scaleFactor
+
+  w = (4 + 1) * scaleFactor
+
+/*
+  Which is exactly (z + 1) * scaleFactor that we used in the previous example.
+
+  In the code below there is an additional .computeSimpleProjectionMatrix() method.
+  This is called in the .draw() method and is passed the scale factor. Adjust this
+  scale factor to verify that it works the same as the previous example.
 */
 
 function CubeDemo () {
@@ -50,6 +95,7 @@ CubeDemo.prototype.setupProgram = function() {
   
   // Save the attribute and uniform locations
   this.locations.model = gl.getUniformLocation(webglProgram, "model");
+  this.locations.projection = gl.getUniformLocation(webglProgram, "projection");
   this.locations.position = gl.getAttribLocation(webglProgram, "position");
   this.locations.color = gl.getAttribLocation(webglProgram, "color");
   
@@ -60,6 +106,19 @@ CubeDemo.prototype.setupProgram = function() {
   gl.enable(gl.DEPTH_TEST);
   
   return webglProgram;
+};
+
+CubeDemo.prototype.computeSimpleProjectionMatrix = function( scaleFactor ) {
+	
+	this.transforms.projection = [
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, scaleFactor, // Note the extra scale factor here
+		0, 0, 0, scaleFactor
+	]
+	
+	// This matrix copies the point and sets the W component to 1 + (z * scaleFactor)
+	
 };
 
 CubeDemo.prototype.computeModelMatrix = function( now ) {
@@ -97,6 +156,7 @@ CubeDemo.prototype.draw = function() {
   
   // Compute our matrices
   this.computeModelMatrix( now );
+  this.computeSimpleProjectionMatrix( 0.5 );
   
   // Update the data going to the GPU
   this.updateAttributesAndUniforms();
@@ -114,6 +174,7 @@ CubeDemo.prototype.updateAttributesAndUniforms = function() {
   
   // Setup the color uniform that will be shared across all triangles
   gl.uniformMatrix4fv(this.locations.model, false, new Float32Array(this.transforms.model));
+  gl.uniformMatrix4fv(this.locations.projection, false, new Float32Array(this.transforms.projection));
   
   // Set the positions attribute
   gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.positions);

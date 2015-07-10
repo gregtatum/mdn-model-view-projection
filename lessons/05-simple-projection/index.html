@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8'>
-  <title>Perspective</title>
+  <title>Simple Projection</title>
   <link type='text/css' rel='stylesheet' href='../../shared/style.css' />
   <style>
     svg {
@@ -13,23 +13,26 @@
 <body>
   
   <script id="vertex-shader" type="x-shader/x-vertex">
-    // Each point has a position and color
+    //Each point has a position and color
     attribute vec3 position;
     attribute vec4 color;
-    
-    // The transformation matrix
+
+    // The transformation matrices
     uniform mat4 model;
+    uniform mat4 projection;
 
     // Pass the color attribute down to the fragment shader
     varying vec4 vColor;
 
     void main() {
       
-      //Pass the color down to the fragment shader
+      // Pass the color down to the fragment shader
       vColor = color;
       
-      // Multiply the 
-      gl_Position = model * vec4(position, 1.0);
+      // Read the multiplication in reverse order, the original point is moved
+      // into clip space, and then projected into a perspective view by filling
+      // in the W component
+      gl_Position = gl_Position = projection * model * vec4( position, 1.0 );
     }
   </script>
 

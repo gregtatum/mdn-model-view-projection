@@ -13,8 +13,11 @@
 <body>
   
   <script id="vertex-shader" type="x-shader/x-vertex">
+    // Each point has a position and color
     attribute vec3 position;
     attribute vec4 color;
+    
+    // The projection matrix
     uniform mat4 model;
 
     // Pass the color attribute down to the fragment shader
@@ -53,7 +56,7 @@
   <canvas id="canvas"></canvas>
     
   <script type='text/javascript' src='../../shared/cube.js'></script>
-  <script type='text/javascript' src='../../shared/shared.js'></script>
+  <script type='text/javascript' src='../../shared/matrices.js'></script>
   <script type='text/javascript' src='../../shared/shaders.js'></script>
   <script type='text/javascript' src='script.js'></script>
     

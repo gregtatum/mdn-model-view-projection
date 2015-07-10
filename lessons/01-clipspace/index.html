@@ -34,8 +34,18 @@
     }
   </script>
     
+  <!--
+    A quick side note about shaders: The shader code in these examples are put into a script
+    tag with a non-standard script type of x-shader. There is nothing magical going on here,
+    just a convention to let us know what type of code the script tag contains. The JavaScript
+    in the examples pull this source code in by accessing the .innerHTML property of the script
+    elements and then compiling and linking the source code into a real shader using the gl
+    context.
+  -->
+    
   <canvas id="canvas"></canvas>
   
+  <!-- The SVG overlay showing clip space -->
   <svg
     style='width:100%; height:100%; position:absolute; top:0; left:0;'
     version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -108,7 +118,7 @@
   	<text x="3.88%" y="95.45%" font-family="'Courier New'" font-size="16" font-weight="bold">Clipspace</text>
   </svg>
     
-  <script type='text/javascript' src='../../shared/shared.js'></script>
+  <script type='text/javascript' src='../../shared/matrices.js'></script>
   <script type='text/javascript' src='../../shared/shaders.js'></script>
   <script type='text/javascript' src='script.js'></script>
     

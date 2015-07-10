@@ -20,6 +20,10 @@
    * createContext
    * createWebGLProgramFromIds
 
+  Exercise:
+
+    1) Change the example code to draw a black smile, two black eyes on a yellow
+       face using only the boxes.
 */
 
 // To start, let's make a class that will draw a 2d box using WebGL

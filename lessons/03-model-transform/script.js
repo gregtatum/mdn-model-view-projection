@@ -25,6 +25,17 @@
   At this point the W value of the transformed point is still 1.0. The cube still
   doesn't have any perspective. The next example will take this setup, and fiddle
   with the W values to provide some perspective.
+
+  Exercise:
+
+    1) Shrink down the box using the scale matrix and position it in different places
+    within clip space. Try moving it outside of clip space. Resize the window
+    and watch as the box skews out of shape. Add a rotateZ matrix.
+
+    2) Modify the createCubeData() function in /shared/cube.js to change the underlying
+    data for the cube and note how the model transform perserves it. (Make sure and
+    restore it once you are done for the other examples.)
+    
 */
 
 function CubeDemo () {
@@ -40,8 +51,9 @@ function CubeDemo () {
   this.transforms = {}; // All of the matrix transforms
   this.locations = {}; //All of the shader locations
   
-  // Get the rest going
+  // createBuffersForCube and createCubeData are located in /shared/cube.js
   this.buffers = createBuffersForCube(this.gl, createCubeData() );
+  
   this.webglProgram = this.setupProgram();
   
 }
