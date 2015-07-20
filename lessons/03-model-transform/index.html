@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8'>
-  <title>Perspective</title>
+  <title>Model Transform</title>
   <link type='text/css' rel='stylesheet' href='../../shared/style.css' />
   <style>
     svg {
@@ -12,6 +12,7 @@
 </head>
 <body>
   
+  <!-- The vertex shader operates on individual vertices in our model data by setting gl_Position -->
   <script id="vertex-shader" type="x-shader/x-vertex">
     // Each point has a position and color
     attribute vec3 position;
@@ -33,6 +34,7 @@
     }
   </script>
 
+  <!-- The fragment shader determines the color of the final pixel by setting gl_FragColor -->
   <script id="fragment-shader" type="x-shader/x-fragment">
     precision mediump float;
     varying vec4 vColor;

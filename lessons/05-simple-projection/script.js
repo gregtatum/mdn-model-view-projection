@@ -99,9 +99,6 @@ CubeDemo.prototype.setupProgram = function() {
   this.locations.position = gl.getAttribLocation(webglProgram, "position");
   this.locations.color = gl.getAttribLocation(webglProgram, "color");
   
-  gl.enableVertexAttribArray(this.locations.position);
-  gl.enableVertexAttribArray(this.locations.color);
-
   // Tell WebGL to test the depth when drawing
   gl.enable(gl.DEPTH_TEST);
   
@@ -175,12 +172,14 @@ CubeDemo.prototype.updateAttributesAndUniforms = function() {
   // Setup the color uniform that will be shared across all triangles
   gl.uniformMatrix4fv(this.locations.model, false, new Float32Array(this.transforms.model));
   gl.uniformMatrix4fv(this.locations.projection, false, new Float32Array(this.transforms.projection));
-  
+	
   // Set the positions attribute
+  gl.enableVertexAttribArray(this.locations.position);
   gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.positions);
   gl.vertexAttribPointer(this.locations.position, 3, gl.FLOAT, false, 0, 0);
   
   // Set the colors attribute
+  gl.enableVertexAttribArray(this.locations.color);
   gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.colors);
   gl.vertexAttribPointer(this.locations.color, 4, gl.FLOAT, false, 0, 0);
   

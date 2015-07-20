@@ -22,7 +22,7 @@
 
   Exercise:
 
-    1) Change the example code to draw a black smile, two black eyes on a yellow
+    1) Change the example code to draw a black smile, and two black eyes on a yellow
        face using only the boxes.
 */
 
@@ -38,7 +38,8 @@ function WebGLBox() {
   
   var gl = this.gl; 
 
-  // Setup a WebGL program
+  // Setup a WebGL program, see /shared/shaders.js for the function
+  // definition of createWebGLProgramFromIds()
   this.webglProgram = createWebGLProgramFromIds(gl, "vertex-shader", "fragment-shader");
   gl.useProgram(this.webglProgram);
   
@@ -54,7 +55,7 @@ function WebGLBox() {
   this.color = [0, 0, 0, 1];
 }
 
-// Define a draw method that takes an object with the settings for the 
+// Define a draw method that takes an object with the settings for the box to be drawn
 
 WebGLBox.prototype.draw = function(settings) {
   
@@ -76,7 +77,7 @@ WebGLBox.prototype.draw = function(settings) {
 
   // Use WebGL to draw this onto the screen.
   
-  // Note: Creating a new array buffer for every draw call is slow.
+  // Performance Note: Creating a new array buffer for every draw call is slow.
   // This function is for illustration purposes only.
   
   var gl = this.gl;

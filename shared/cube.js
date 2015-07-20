@@ -1,3 +1,4 @@
+// Define the data that is needed to make a 3d cube
 function createCubeData() {
   
   var positions = [
@@ -73,6 +74,8 @@ function createCubeData() {
   }
 }
 
+// Take the data for a cube and bind the buffers for it.
+// Return an object collection of the buffers
 function createBuffersForCube( gl, cube ) {
   
   var positions = gl.createBuffer();
@@ -92,10 +95,4 @@ function createBuffersForCube( gl, cube ) {
     colors: colors,
     elements: elements
   }
-}
-
-function drawCube( elementsBuffer ) {
-  
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, elementsBuffer);
-  gl.drawElements(gl.TRIANGLES, 36, gl.UNSIGNED_SHORT, 0);
 }

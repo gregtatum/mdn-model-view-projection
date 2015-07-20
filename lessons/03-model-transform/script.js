@@ -1,6 +1,6 @@
 /*
   Placing points directly into clip space is of limited use. What's better is
-  to take model data and transform it into clipspace. The cube is an easy example
+  to take model data and transform it into clip space. The cube is an easy example
   of how to do this. The cube data below consists of vertex positions, the colors
   of the faces of the cube, and the order of the vertex positions that make up
   the individual polygons (in groups of 3). The positions and colors are stored in
@@ -10,7 +10,7 @@
   be performed on each position that makes up the model to move it into the correct
   space. In this case, for every frame of the animation, a series of scale, rotation,
   and translation matrices move the data into the desired spot in clip space. The
-  cube is the size of clipspace (-1,-1,-1) to (1,1,1) so it will need to be shrunk
+  cube is the size of clip space (-1,-1,-1) to (1,1,1) so it will need to be shrunk
   down to fit. This matrix is sent to the shader having been multiplied in JavaScript
   beforehand.
   
@@ -71,9 +71,6 @@ CubeDemo.prototype.setupProgram = function() {
   this.locations.position = gl.getAttribLocation(webglProgram, "position");
   this.locations.color = gl.getAttribLocation(webglProgram, "color");
   
-  gl.enableVertexAttribArray(this.locations.position);
-  gl.enableVertexAttribArray(this.locations.color);
-
   // Tell WebGL to test the depth when drawing
   gl.enable(gl.DEPTH_TEST);
   
@@ -81,6 +78,8 @@ CubeDemo.prototype.setupProgram = function() {
 };
 
 CubeDemo.prototype.computeModelMatrix = function( now ) {
+
+  //See /shared/matrices.js for the definitions of these matrix functions
 
   //Scale down by 30%
   var scale = scaleMatrix(0.5, 0.5, 0.5);
@@ -134,10 +133,12 @@ CubeDemo.prototype.updateAttributesAndUniforms = function() {
   gl.uniformMatrix4fv(this.locations.model, false, new Float32Array(this.transforms.model));
   
   // Set the positions attribute
+  gl.enableVertexAttribArray(this.locations.position);
   gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.positions);
   gl.vertexAttribPointer(this.locations.position, 3, gl.FLOAT, false, 0, 0);
   
   // Set the colors attribute
+  gl.enableVertexAttribArray(this.locations.color);
   gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.colors);
   gl.vertexAttribPointer(this.locations.color, 4, gl.FLOAT, false, 0, 0);
   

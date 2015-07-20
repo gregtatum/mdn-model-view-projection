@@ -1,10 +1,10 @@
 /*
-  The main line of the previous clipspace vertex shader contained this code:
+  The main line of the previous clip space vertex shader contained this code:
 
       gl_Position = vec4(position, 1.0);
   
   The position variable is what was passed in as an attribute to the shader and
-  was defined in the draw method. This is a three dimensions point, but the
+  was defined in the draw method. This is a three dimensional point, but the
   gl_Position variable that ends up getting passed down through the pipeline
   is actually 4 dimensions. Instead of (x,y,z) it is (x,y,z,w). In this example
   the w coordinate is being set to 1.0. The obvious question is "why the extra

@@ -1,11 +1,11 @@
 /*
-  The final step in all of this is to create the view matrix. Right now
-  we can move the cube around world space. We can project everything
-  to have perspective, but we still can't move the camera.
+  The final step in all of this is to create the view matrix. Right now we can move
+  the cube around world space. We can project everything to have perspective, but
+  we still can't move the camera.
 
-  The final matrix is the view matrix that represents the camera's position.
-  Imagine shooting a movie with a physical camera. This matrix represents
-  the position and rotation of that physical camera.
+  The final matrix is the view matrix that represents the camera's position. Imagine
+  shooting a movie with a physical camera. This matrix represents the position and
+  rotation of that physical camera.
 
   At this point it would be beneficial to take a step back and look at and label
   the various coordinate systems. First off the cube's vertices are in model
@@ -26,7 +26,6 @@
 
   After this step the GPU will clip the out of range vertices, and send the model
   down to the fragment shader for rasterization.
-
 
   Exercise:
 
@@ -71,9 +70,6 @@ CubeDemo.prototype.setupProgram = function() {
   this.locations.position = gl.getAttribLocation(webglProgram, "position");
   this.locations.color = gl.getAttribLocation(webglProgram, "color");
   
-  gl.enableVertexAttribArray(this.locations.position);
-  gl.enableVertexAttribArray(this.locations.color);
-
   // Tell WebGL to test the depth when drawing
   gl.enable(gl.DEPTH_TEST);
   
@@ -169,10 +165,12 @@ CubeDemo.prototype.updateAttributesAndUniforms = function() {
   gl.uniformMatrix4fv(this.locations.view, false, new Float32Array(this.transforms.view));
   
   // Set the positions attribute
+  gl.enableVertexAttribArray(this.locations.position);
   gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.positions);
   gl.vertexAttribPointer(this.locations.position, 3, gl.FLOAT, false, 0, 0);
   
   // Set the colors attribute
+  gl.enableVertexAttribArray(this.locations.color);
   gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.colors);
   gl.vertexAttribPointer(this.locations.color, 4, gl.FLOAT, false, 0, 0);
   
