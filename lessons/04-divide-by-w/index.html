@@ -35,8 +35,8 @@
       // How much affect does the perspective have?
       float scaleFactor = 0.5;
       
-      // Set a custom W value that is typically greater than 0 for
-      // points already in clip space
+      // Set w by taking the Z value which is typically ranged -1 to 1, then scale
+      // it to be from 0 to some number, in this case 0-1.
       float w = (1.0 + transformedPosition.z) * scaleFactor;
       
       // Save the new gl_Position with the custom w component

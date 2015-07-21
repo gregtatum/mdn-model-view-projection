@@ -33,7 +33,7 @@
       // Read the multiplication in reverse order, the original point is moved
       // into clip space, and then projected into a perspective view by filling
       // in the W component
-      gl_Position = gl_Position = projection * model * vec4( position, 1.0 );
+      gl_Position = projection * model * vec4( position, 1.0 );
     }
   </script>
 

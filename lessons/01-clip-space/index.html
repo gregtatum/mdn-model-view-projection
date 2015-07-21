@@ -11,6 +11,15 @@
   </style>
 </head>
 <body>
+    
+  <!--
+    A quick side note about shaders: The shader code in these examples is put into a script
+    tag with a non-standard script type of x-shader. There is nothing magical going on here,
+    just a convention to let us know what type of code the script tag contains. The JavaScript
+    in the examples pull this source code in by accessing the .innerHTML property of the script
+    elements and then compiling and linking the source code into a real shader using the gl
+    context.
+  -->
   
   <!--
     The vertex shader operates on individual vertices in our model data by setting gl_Position.
@@ -38,15 +47,6 @@
       gl_FragColor = color;
     }
   </script>
-    
-  <!--
-    A quick side note about shaders: The shader code in these examples are put into a script
-    tag with a non-standard script type of x-shader. There is nothing magical going on here,
-    just a convention to let us know what type of code the script tag contains. The JavaScript
-    in the examples pull this source code in by accessing the .innerHTML property of the script
-    elements and then compiling and linking the source code into a real shader using the gl
-    context.
-  -->
     
   <canvas id="canvas"></canvas>
   

@@ -15,11 +15,19 @@ View Matrix                 | TODO   | [07-view-matrix](lessons/07-view-matrix)
 
 ## Getting started
 
-The lessons can either be worked online from JSFiddle, or downloaded and explored locally. The content of the lessons is mixed in with the code. The `script.js` files contain most of the lesson, while the `index.html` contains the HTML and shader code. To download these files either [download the zip file](https://github.com/TatumCreative/mdn-model-view-projection/archive/master.zip) or run `git clone git@github.com:TatumCreative/mdn-model-view-projection.git`.
+The lessons can either be worked online from JSFiddle, or downloaded and explored locally. The content of the lessons is mixed in with the code. The `script.js` files contain most of the lesson, while the `index.html` contains the HTML and shader code. To download these files either [grab the zip file](https://github.com/TatumCreative/mdn-model-view-projection/archive/master.zip) or run `git clone git@github.com:TatumCreative/mdn-model-view-projection.git` from the command line.
+
+### Working locally checklist
+
+ 1. Verify that [WebGL works on your machine](https://get.webgl.org/).
+ 2. Download the lesson files to your machine.
+ 3. Open the lessons in the browser:
+   * Either open the index.html files from the lessons in your browser
+   * Or if you are serving files with a local webserver, make sure and serve them from the root directory of the content kit so that the shared js files can be correctly loaded in.
 
 ## Lesson requirements
 
-These lessons require a [browser and device that support WebGL](https://get.webgl.org/). The browsers that support WebGL are Firefox 4+, Google Chrome 9+, Opera 12+, Safari 5.1+ and Internet Explorer 11+. Be aware that not all devices support these features. There are many tutorials available throughout the web on graphics programming, but this content kit specifically targets web developers. It's assumed that the audience is familiar with intermediate level web development, markup, and JavaScript.
+These lessons require a [browser and device that support WebGL](https://get.webgl.org/). The browsers that support these features are Firefox 4+, Google Chrome 9+, Opera 12+, Safari 5.1+ and Internet Explorer 11+. Be aware that not all devices support WebGL even if the browsers do. There are many tutorials available throughout the web on graphics programming, but this content kit specifically targets web developers. It's assumed that the audience is familiar with an intermediate level web development, markup, and JavaScript.
 
 ## Updates and Correction
 
