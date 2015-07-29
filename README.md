@@ -3,15 +3,15 @@
 
 This content kit explores how to take data within a WebGL project, and project it into the proper spaces to display it on the screen. It assumes a knowledge of basic matrix math using translation, scale, and rotation matrices. It explains the three core matrices that are typically used to represent a 3d object: the model, view and projection matrices.
 
-Lesson                  | JSFiddle | Code                                                | Time Estimation |
------------------------ | -----| ---------------------------------------------------------------- | ------ |
-Clip Space              | [JSFiddle](https://jsfiddle.net/tatumcreative/4u1wwtpa/7/) | [01-clip-space](lessons/01-clip-space)                           | 15 min |
-Homogeneous Coordinates | [JSFiddle](https://jsfiddle.net/tatumcreative/s82yypvx/4/) | [02-homogeneous-coordinates](lessons/02-homogeneous-coordinates) | 15 min |
-Model Matrix            | [JSFiddle](https://jsfiddle.net/tatumcreative/5bhun9wj/4/) | [03-model-transform](lessons/03-model-transform)                 | 15 min |
-Divide by W             | [JSFiddle](https://jsfiddle.net/tatumcreative/q4ejx6xf/4/) | [04-divide-by-w](lessons/04-divide-by-w)                         | 15 min |
-Simple Projection       | [JSFiddle](https://jsfiddle.net/tatumcreative/hxs1m84v/5/) | [05-simple-projection](lessons/05-simple-projection)             | 15 min |
-Perspective Matrix      | [JSFiddle](https://jsfiddle.net/tatumcreative/9wa7auut/4/) | [06-perspective-matrix](lessons/06-perspective-matrix)           | 15 min |
-View Matrix             | [JSFiddle](https://jsfiddle.net/tatumcreative/t3vrx2vd/4/) | [07-view-matrix](lessons/07-view-matrix)                         | 15 min |
+Lesson                  | JSFiddle                                                 | Code                                                    | Time Estimation |
+----------------------- | ---------------------------------------------------------| ---------------------------------------------------------------- | ------ |
+Clip Space              | [JSFiddle](https://jsfiddle.net/tatumcreative/2x03hdc8/) | [01-clip-space](lessons/01-clip-space)                           | 15 min |
+Homogeneous Coordinates | [JSFiddle](https://jsfiddle.net/tatumcreative/mff99yu5/) | [02-homogeneous-coordinates](lessons/02-homogeneous-coordinates) | 15 min |
+Model Matrix            | [JSFiddle](https://jsfiddle.net/tatumcreative/5jofzgsh/) | [03-model-transform](lessons/03-model-transform)                 | 15 min |
+Divide by W             | [JSFiddle](https://jsfiddle.net/tatumcreative/vk9r8h2c/) | [04-divide-by-w](lessons/04-divide-by-w)                         | 15 min |
+Simple Projection       | [JSFiddle](https://jsfiddle.net/tatumcreative/zwyLLcbw/) | [05-simple-projection](lessons/05-simple-projection)             | 15 min |
+Perspective Matrix      | [JSFiddle](https://jsfiddle.net/tatumcreative/Lzxw7e1q/) | [06-perspective-matrix](lessons/06-perspective-matrix)           | 15 min |
+View Matrix             | [JSFiddle](https://jsfiddle.net/tatumcreative/86fd797g/) | [07-view-matrix](lessons/07-view-matrix)                         | 15 min |
 
 ## Getting started (10 min)
 
