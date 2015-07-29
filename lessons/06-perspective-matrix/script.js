@@ -65,9 +65,9 @@
 
     1) Experiment with the parameters of the perspective matrix and the model matrix.
 
-    2) Swap out the perspective matrix to use orthographic projection. In ./shared/matrices.js
-       there is the function orthographicMatrix() that can replace the MDN.perspectiveMatrix()
-       function in .computePerspectiveMatrix().
+    2) Swap out the perspective matrix to use orthographic projection. In the shared code
+       there is the function MDN.orthographicMatrix() that can replace the
+       MDN.perspectiveMatrix() function in .computePerspectiveMatrix().
 */
 
 function CubeDemo () {

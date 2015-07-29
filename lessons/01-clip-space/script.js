@@ -16,9 +16,9 @@
   the squares determines what gets drawn ontop when the squares share the same space.
   The smaller Z values are rendered ontop of the larger Z values.
   
-  Note: the following functions used below are from /shared/shaders.js
-   * MDN.createContext
-   * MDN.createWebGLProgramFromIds
+  Note: See the MDN global object defined in the html script tag for some shared
+  functions that are used in this example. These functions are written for code clarity,
+  not necessarily performance for real time visualizations.
 
   Exercise:
 
