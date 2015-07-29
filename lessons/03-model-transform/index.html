@@ -46,10 +46,27 @@
   </script>
     
   <canvas id="canvas"></canvas>
-    
+  
+  <h1 class='lesson-title'>
+    <a href='../02-homogeneous-coordinates'>&larr;</a>
+    Model Transform
+    <a href='../04-divide-by-w'>&rarr;</a>
+  </h1>
+  
   <script type='text/javascript' src='../../shared/cube.js'></script>
   <script type='text/javascript' src='../../shared/matrices.js'></script>
   <script type='text/javascript' src='../../shared/shaders.js'></script>
+  <script type="text/javascript">
+    // Double check that the shared files are being pulled in.
+    if( !MDN ) {
+      alert(
+        "Could not find the shared script files. Make sure this page has "+
+        "access to '../../shared'. If you are serving files with a local "+
+        "web server make sure and share the files from the base content "+
+        "kit directory."
+      );
+    }
+  </script>
   <script type='text/javascript' src='script.js'></script>
     
 </body>

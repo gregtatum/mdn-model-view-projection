@@ -44,13 +44,13 @@ function CubeDemo () {
   this.canvas.height = window.innerHeight;
   
   // Grab a context
-  this.gl = createContext(this.canvas);
+  this.gl = MDN.createContext(this.canvas);
 
   this.transforms = {}; // All of the matrix transforms
   this.locations = {}; //All of the shader locations
   
   // Get the rest going
-  this.buffers = createBuffersForCube(this.gl, createCubeData() );
+  this.buffers = MDN.createBuffersForCube(this.gl, MDN.createCubeData() );
   this.webglProgram = this.setupProgram();
   
 }
@@ -60,7 +60,7 @@ CubeDemo.prototype.setupProgram = function() {
   var gl = this.gl;
     
   // Setup a WebGL program
-  var webglProgram = createWebGLProgramFromIds(gl, "vertex-shader", "fragment-shader");
+  var webglProgram = MDN.createWebGLProgramFromIds(gl, "vertex-shader", "fragment-shader");
   gl.useProgram(webglProgram);
   
   // Save the attribute and uniform locations
@@ -83,7 +83,7 @@ CubeDemo.prototype.computePerspectiveMatrix = function() {
   var nearClippingPlaneDistance = 1;
   var farClippingPlaneDistance = 50;
   
-  this.transforms.projection = perspectiveMatrix(
+  this.transforms.projection = MDN.perspectiveMatrix(
     fieldOfViewInRadians,
     aspectRatio,
     nearClippingPlaneDistance,
@@ -96,10 +96,10 @@ CubeDemo.prototype.computeViewMatrix = function( now ) {
   var zoomInAndOut = 5 * Math.sin(now * 0.002);
   
   // Move slightly down
-  var position = translateMatrix(0, 0, -20 + zoomInAndOut );
+  var position = MDN.translateMatrix(0, 0, -20 + zoomInAndOut );
   
   // Multiply together, make sure and read them in opposite order
-  this.transforms.view = multiplyArrayOfMatrices([
+  this.transforms.view = MDN.multiplyArrayOfMatrices([
     
     //Exercise: rotate the camera view
     position
@@ -110,19 +110,19 @@ CubeDemo.prototype.computeViewMatrix = function( now ) {
 CubeDemo.prototype.computeModelMatrix = function( now ) {
 
   //Scale up
-  var scale = scaleMatrix(5, 5, 5);
+  var scale = MDN.scaleMatrix(5, 5, 5);
   
   // Rotate a slight tilt
-  var rotateX = rotateXMatrix( Math.PI * 0.2 );
+  var rotateX = MDN.rotateXMatrix( Math.PI * 0.2 );
   
   // Rotate according to time
-  var rotateY = rotateYMatrix( Math.PI * 0.2 );
+  var rotateY = MDN.rotateYMatrix( Math.PI * 0.2 );
 
   // Move slightly down
-  var position = translateMatrix(0, 0, 0);
+  var position = MDN.translateMatrix(0, 0, 0);
   
   // Multiply together, make sure and read them in opposite order
-  this.transforms.model = multiplyArrayOfMatrices([
+  this.transforms.model = MDN.multiplyArrayOfMatrices([
     position, // step 4
     rotateY,  // step 3
     rotateX,  // step 2

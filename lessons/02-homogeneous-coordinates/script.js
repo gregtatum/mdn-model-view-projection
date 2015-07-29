@@ -91,12 +91,12 @@ function WebGLBox() {
   this.canvas = document.getElementById("canvas");
   this.canvas.width = window.innerWidth;
   this.canvas.height = window.innerHeight;
-  this.gl = createContext(this.canvas);
+  this.gl = MDN.createContext(this.canvas);
   
   var gl = this.gl; 
 
   // Setup a WebGL program
-  this.webglProgram = createWebGLProgramFromIds(gl, "vertex-shader", "fragment-shader");
+  this.webglProgram = MDN.createWebGLProgramFromIds(gl, "vertex-shader", "fragment-shader");
   gl.useProgram(this.webglProgram);
   
   // Save the attribute and uniform locations

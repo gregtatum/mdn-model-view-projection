@@ -1,5 +1,8 @@
+// Define the MDN global if it doesn't already exist
+var MDN = window.MDN || {};
+
 // Define the data that is needed to make a 3d cube
-function createCubeData() {
+MDN.createCubeData = function() {
   
   var positions = [
     // Front face
@@ -76,7 +79,7 @@ function createCubeData() {
 
 // Take the data for a cube and bind the buffers for it.
 // Return an object collection of the buffers
-function createBuffersForCube( gl, cube ) {
+MDN.createBuffersForCube = function( gl, cube ) {
   
   var positions = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positions);

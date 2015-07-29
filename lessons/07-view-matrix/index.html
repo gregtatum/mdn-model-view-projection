@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8'>
-  <title>Simple Projection</title>
+  <title>View Matrix</title>
   <link type='text/css' rel='stylesheet' href='../../shared/style.css' />
   <style>
     svg {
@@ -51,10 +51,26 @@
   </script>
     
   <canvas id="canvas"></canvas>
-    
+  
+  <h1 class='lesson-title'>
+    <a href='../06-perspective-matrix'>&larr;</a>
+    View Matrix
+  </h1>
+  
   <script type='text/javascript' src='../../shared/cube.js'></script>
   <script type='text/javascript' src='../../shared/matrices.js'></script>
   <script type='text/javascript' src='../../shared/shaders.js'></script>
+  <script type="text/javascript">
+    // Double check that the shared files are being pulled in.
+    if( !MDN ) {
+      alert(
+        "Could not find the shared script files. Make sure this page has "+
+        "access to '../../shared'. If you are serving files with a local "+
+        "web server make sure and share the files from the base content "+
+        "kit directory."
+      );
+    }
+  </script>
   <script type='text/javascript' src='script.js'></script>
     
 </body>

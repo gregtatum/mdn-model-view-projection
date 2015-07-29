@@ -23,7 +23,7 @@
   it comes towards the viewer.
 
 
-  The perspectiveMatrix() function takes 4 arguments.
+  The MDN.perspectiveMatrix() function takes 4 arguments.
 
 	fieldOfViewInRadians:
 		
@@ -66,7 +66,7 @@
     1) Experiment with the parameters of the perspective matrix and the model matrix.
 
     2) Swap out the perspective matrix to use orthographic projection. In ./shared/matrices.js
-       there is the function orthographicMatrix() that can replace the perspectiveMatrix()
+       there is the function orthographicMatrix() that can replace the MDN.perspectiveMatrix()
        function in .computePerspectiveMatrix().
 */
 
@@ -78,13 +78,13 @@ function CubeDemo () {
   this.canvas.height = window.innerHeight;
   
   // Grab a context
-  this.gl = createContext(this.canvas);
+  this.gl = MDN.createContext(this.canvas);
 
   this.transforms = {}; // All of the matrix transforms
   this.locations = {}; //All of the shader locations
   
   // Get the rest going
-  this.buffers = createBuffersForCube(this.gl, createCubeData() );
+  this.buffers = MDN.createBuffersForCube(this.gl, MDN.createCubeData() );
   this.webglProgram = this.setupProgram();
   
 }
@@ -94,7 +94,7 @@ CubeDemo.prototype.setupProgram = function() {
   var gl = this.gl;
     
   // Setup a WebGL program
-  var webglProgram = createWebGLProgramFromIds(gl, "vertex-shader", "fragment-shader");
+  var webglProgram = MDN.createWebGLProgramFromIds(gl, "vertex-shader", "fragment-shader");
   gl.useProgram(webglProgram);
   
   // Save the attribute and uniform locations
@@ -116,7 +116,7 @@ CubeDemo.prototype.computePerspectiveMatrix = function() {
   var nearClippingPlaneDistance = 1;
   var farClippingPlaneDistance = 50;
   
-  this.transforms.projection = perspectiveMatrix(
+  this.transforms.projection = MDN.perspectiveMatrix(
     fieldOfViewInRadians,
     aspectRatio,
     nearClippingPlaneDistance,
@@ -127,19 +127,19 @@ CubeDemo.prototype.computePerspectiveMatrix = function() {
 CubeDemo.prototype.computeModelMatrix = function( now ) {
 
   //Scale up
-  var scale = scaleMatrix(5, 5, 5);
+  var scale = MDN.scaleMatrix(5, 5, 5);
   
   // Rotate a slight tilt
-  var rotateX = rotateXMatrix( now * 0.0003 );
+  var rotateX = MDN.rotateXMatrix( now * 0.0003 );
   
   // Rotate according to time
-  var rotateY = rotateYMatrix( now * 0.0005 );
+  var rotateY = MDN.rotateYMatrix( now * 0.0005 );
 
   // Move slightly down
-  var position = translateMatrix(0, 0, -20);
+  var position = MDN.translateMatrix(0, 0, -20);
   
   // Multiply together, make sure and read them in opposite order
-  this.transforms.model = multiplyArrayOfMatrices([
+  this.transforms.model = MDN.multiplyArrayOfMatrices([
     position, // step 4
     rotateY,  // step 3
     rotateX,  // step 2

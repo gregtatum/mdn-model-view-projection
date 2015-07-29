@@ -17,8 +17,8 @@
   The smaller Z values are rendered ontop of the larger Z values.
   
   Note: the following functions used below are from /shared/shaders.js
-   * createContext
-   * createWebGLProgramFromIds
+   * MDN.createContext
+   * MDN.createWebGLProgramFromIds
 
   Exercise:
 
@@ -34,13 +34,13 @@ function WebGLBox() {
   this.canvas = document.getElementById("canvas");
   this.canvas.width = window.innerWidth;
   this.canvas.height = window.innerHeight;
-  this.gl = createContext(canvas);
+  this.gl = MDN.createContext(canvas);
   
   var gl = this.gl; 
 
   // Setup a WebGL program, see /shared/shaders.js for the function
   // definition of createWebGLProgramFromIds()
-  this.webglProgram = createWebGLProgramFromIds(gl, "vertex-shader", "fragment-shader");
+  this.webglProgram = MDN.createWebGLProgramFromIds(gl, "vertex-shader", "fragment-shader");
   gl.useProgram(this.webglProgram);
   
   // Save the attribute and uniform locations

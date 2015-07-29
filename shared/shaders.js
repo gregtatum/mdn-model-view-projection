@@ -6,7 +6,10 @@
  * 
  **/
 
-function createShader (gl, source, type) {
+// Define the MDN global if it doesn't already exist
+var MDN = window.MDN || {};
+
+MDN.createShader = function (gl, source, type) {
   
   // Compiles either a shader of type gl.VERTEX_SHADER or gl.FRAGMENT_SHADER
   
@@ -23,7 +26,7 @@ function createShader (gl, source, type) {
   return shader
 }
 
-function linkProgram (gl, vertexShader, fragmentShader) {
+MDN.linkProgram = function (gl, vertexShader, fragmentShader) {
 
   var program = gl.createProgram();
 
@@ -40,29 +43,29 @@ function linkProgram (gl, vertexShader, fragmentShader) {
   return program;
 }
 
-function createWebGLProgram (gl, vertexSource, fragmentSource) {
+MDN.createWebGLProgram = function (gl, vertexSource, fragmentSource) {
 
-  // Combines createShader() and linkProgram()
+  // Combines MDN.createShader() and MDN.linkProgram()
   
-  var vertexShader = createShader( gl, vertexSource, gl.VERTEX_SHADER );
-  var fragmentShader = createShader( gl, fragmentSource, gl.FRAGMENT_SHADER );
+  var vertexShader = MDN.createShader( gl, vertexSource, gl.VERTEX_SHADER );
+  var fragmentShader = MDN.createShader( gl, fragmentSource, gl.FRAGMENT_SHADER );
 
-  return linkProgram( gl, vertexShader, fragmentShader );
+  return MDN.linkProgram( gl, vertexShader, fragmentShader );
 }
 
-function createWebGLProgramFromIds (gl, vertexSourceId, fragmentSourceId) {
+MDN.createWebGLProgramFromIds = function (gl, vertexSourceId, fragmentSourceId) {
   
   var vertexSourceEl = document.getElementById(vertexSourceId);
   var fragmentSourceEl = document.getElementById(fragmentSourceId);
   
-  return createWebGLProgram(
+  return MDN.createWebGLProgram(
     gl,
     vertexSourceEl.innerHTML,
     fragmentSourceEl.innerHTML
   );
 }
 
-function createContext (canvas) {
+MDN.createContext = function (canvas) {
   
   var gl;
   

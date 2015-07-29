@@ -29,13 +29,13 @@ function CubeDemo () {
   this.canvas.height = window.innerHeight;
   
   // Grab a context
-  this.gl = createContext(this.canvas);
+  this.gl = MDN.createContext(this.canvas);
 
   this.transforms = {}; // All of the matrix transforms
   this.locations = {}; //All of the shader locations
   
   // Get the rest going
-  this.buffers = createBuffersForCube(this.gl, createCubeData() );
+  this.buffers = MDN.createBuffersForCube(this.gl, MDN.createCubeData() );
   this.webglProgram = this.setupProgram();
   
 }
@@ -45,7 +45,7 @@ CubeDemo.prototype.setupProgram = function() {
   var gl = this.gl;
     
   // Setup a WebGL program
-  var webglProgram = createWebGLProgramFromIds(gl, "vertex-shader", "fragment-shader");
+  var webglProgram = MDN.createWebGLProgramFromIds(gl, "vertex-shader", "fragment-shader");
   gl.useProgram(webglProgram);
   
   // Save the attribute and uniform locations
@@ -62,19 +62,19 @@ CubeDemo.prototype.setupProgram = function() {
 CubeDemo.prototype.computeModelMatrix = function( now ) {
 
   //Scale down by 30%
-  var scale = scaleMatrix(0.2, 0.2, 0.2);
+  var scale = MDN.scaleMatrix(0.2, 0.2, 0.2);
   
   // Rotate a slight tilt
-  var rotateX = rotateXMatrix( now * 0.0003 );
+  var rotateX = MDN.rotateXMatrix( now * 0.0003 );
   
   // Rotate according to time
-  var rotateY = rotateYMatrix( now * 0.0005 );
+  var rotateY = MDN.rotateYMatrix( now * 0.0005 );
 
   // Move slightly down
-  var position = translateMatrix(0, -0.1, 0);
+  var position = MDN.translateMatrix(0, -0.1, 0);
   
   // Multiply together, make sure and read them in opposite order
-  this.transforms.model = multiplyArrayOfMatrices([
+  this.transforms.model = MDN.multiplyArrayOfMatrices([
     position, // step 4
     rotateY,  // step 3
     rotateX,  // step 2
