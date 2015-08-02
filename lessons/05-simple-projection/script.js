@@ -120,7 +120,7 @@ CubeDemo.prototype.computeSimpleProjectionMatrix = function( scaleFactor ) {
 
 CubeDemo.prototype.computeModelMatrix = function( now ) {
 
-  //Scale down by 30%
+  //Scale down by 20%
   var scale = MDN.scaleMatrix(0.2, 0.2, 0.2);
   
   // Rotate a slight tilt

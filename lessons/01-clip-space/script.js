@@ -51,8 +51,6 @@ function WebGLBox() {
   // another square it won't be drawn
   gl.enable(gl.DEPTH_TEST);
   
-  // Default to a black color
-  this.color = [0, 0, 0, 1];
 }
 
 // Define a draw method that takes an object with the settings for the box to be drawn

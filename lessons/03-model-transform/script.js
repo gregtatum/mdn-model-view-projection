@@ -81,7 +81,7 @@ CubeDemo.prototype.computeModelMatrix = function( now ) {
 
   //See /shared/matrices.js for the definitions of these matrix functions
 
-  //Scale down by 30%
+  //Scale down by 50%
   var scale = MDN.scaleMatrix(0.5, 0.5, 0.5);
   
   // Rotate a slight tilt

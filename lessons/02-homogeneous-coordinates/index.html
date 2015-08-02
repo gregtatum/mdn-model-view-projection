@@ -15,12 +15,12 @@
   <!-- The vertex shader operates on individual vertices in our model data by setting gl_Position -->
   <script id="vertex-shader" type="x-shader/x-vertex">
     // The individual position vertex
-    attribute vec3 position;
+    attribute vec4 position;
 
     void main() {
     
       // the gl_Position is the final position after the vertex shader modifies it
-      gl_Position = vec4(position, 1.0);
+      gl_Position = position;
     }
   </script>
 

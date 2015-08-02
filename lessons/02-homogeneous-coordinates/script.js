@@ -106,9 +106,6 @@ function WebGLBox() {
   // Tell WebGL to test the depth when drawing, so if a square is behind
   // another square it won't be drawn
   gl.enable(gl.DEPTH_TEST);
-  
-  // Default to a black color
-  this.color = [0, 0, 0, 1];
 }
 
 // Define a draw method that takes an object with the settings for the 
@@ -183,8 +180,8 @@ box.draw({
   color  : [0.4, 1, 0.4, 1] // green
 });
 
-// This box doesn't get drawn because it's outside of clip space. The depth is
-// outside of the -1.0 to 1.0 range.
+// This box previously didn't drawn to the screen because it was outside of clip space. Setting
+// The W to 1.5 will bring it back into clip space.
 box.draw({
 
   top    : 1,               // x
