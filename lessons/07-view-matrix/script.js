@@ -3,9 +3,16 @@
   the cube around world space. We can project everything to have perspective, but
   we still can't move the camera.
 
-  The final matrix is the view matrix that represents the camera's position. Imagine
-  shooting a movie with a physical camera. This matrix represents the position and
-  rotation of that physical camera.
+  The final matrix is the view matrix that represents the camera's location in space.
+  Imagine shooting a movie with a physical camera. This matrix represents the position
+  and rotation of that physical camera.
+
+  Unlike the model matrix, which directly transforms the model vertices, the view
+  matrix moves an abstract camera around. In reality the vertex shader is still
+  only moving the models and the "camera" stays in place. In order for this to work
+  out correctly the inverse of the transform matrix must be used. The inverse matrix
+  essentially reverses a transformation. So if we move the camera view forward, it
+  moves all of the objects in the scene back.
 
   At this point it would be beneficial to take a step back and look at and label
   the various coordinate systems. First off the cube's vertices are in model
@@ -19,13 +26,14 @@
 
   world space -> view matrix -> view space
 
-  Finally a projection or perspective needs to be added. This final step will move it
-  into clip space.
+  Finally a projection (in our case the perspective matrix) needs to be added. This
+  final step will move it into clip space.
 
   view space -> projection matrix -> clip space
 
-  After this step the GPU will clip the out of range vertices, and send the model
+  After this step the GPU pipeline will clip the out of range vertices, and send the model
   down to the fragment shader for rasterization.
+
 
   Exercise:
 
@@ -78,10 +86,10 @@ CubeDemo.prototype.setupProgram = function() {
 
 CubeDemo.prototype.computePerspectiveMatrix = function() {
   
-  var fieldOfViewInRadians = Math.PI * 0.5;
+  var fieldOfViewInRadians = Math.PI * 0.2;
   var aspectRatio = window.innerWidth / window.innerHeight;
   var nearClippingPlaneDistance = 1;
-  var farClippingPlaneDistance = 50;
+  var farClippingPlaneDistance = 100;
   
   this.transforms.projection = MDN.perspectiveMatrix(
     fieldOfViewInRadians,
@@ -93,18 +101,22 @@ CubeDemo.prototype.computePerspectiveMatrix = function() {
 
 CubeDemo.prototype.computeViewMatrix = function( now ) {
 
-  var zoomInAndOut = 5 * Math.sin(now * 0.002);
+  var moveInAndOut = 20 * Math.sin(now * 0.002);
+  var moveLeftAndRight = 15 * Math.sin(now * 0.0017);
   
-  // Move slightly down
-  var position = MDN.translateMatrix(0, 0, -20 + zoomInAndOut );
+  // Move the camera around
+  var position = MDN.translateMatrix(moveLeftAndRight, 0, 50 + moveInAndOut );
   
   // Multiply together, make sure and read them in opposite order
-  this.transforms.view = MDN.multiplyArrayOfMatrices([
+  var matrix = MDN.multiplyArrayOfMatrices([
     
     //Exercise: rotate the camera view
     position
   ]);
   
+  // Inverse the operation for camera movements, because we are actually
+  // moving the geometry in the scene, not the camera itself.
+  this.transforms.view = MDN.invertMatrix( matrix );
 };
 
 CubeDemo.prototype.computeModelMatrix = function( now ) {

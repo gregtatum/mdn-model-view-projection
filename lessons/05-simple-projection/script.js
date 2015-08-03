@@ -112,7 +112,7 @@ CubeDemo.prototype.computeSimpleProjectionMatrix = function( scaleFactor ) {
 		0, 1, 0, 0,
 		0, 0, 1, scaleFactor, // Note the extra scale factor here
 		0, 0, 0, scaleFactor
-	]
+	];
 	
 	// This matrix copies the point and sets the W component to 1 + (z * scaleFactor)
 	

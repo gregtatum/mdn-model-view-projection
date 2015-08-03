@@ -15,7 +15,7 @@
   beforehand.
   
   In the shader each position vertex is first transformed into a homogeneous
-  coordinate (vec4), and then multiplied against the model matrix. In
+  coordinate (vec4), and then multiplied against the model matrix.
 
     gl_Position = model * vec4(position, 1.0);
 
